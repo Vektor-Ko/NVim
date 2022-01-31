@@ -1,0 +1,30 @@
+if !exists('g:lspconfig')
+    finish
+endif
+
+lua << EOF
+--vim.lsp.set_log_level("debug")
+EOF
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+local protocol = require'vim.lsp.protocol'
+
+local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    buf_set_option('omnifunc', v:lua.vim.lsp.omnifunc')
+
+    local opts = {neremap = true, silent=true}
+
+    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.decleration()<CR>', opts)
+    buf_set_kepmap('n','gd','<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+
+    if client.name == 'tsserver' then
+        client.resolved_copabilities.document_formatting = false
+    end
+
+
+EOF
+
