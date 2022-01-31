@@ -1,2 +1,2 @@
 # NVim
-My NVim setup
+NVim setup
