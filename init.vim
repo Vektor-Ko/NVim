@@ -1,33 +1,11 @@
-syntax on
-set relativenumber
-
-set exrc
-set guicursor=
-set nohlsearch
-set hidden
-set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
-set nu
-set nowrap
-set smartcase
-set noswapfile
-set nobackup
-set undodir=~/.vim/undodir
-set undofile
-set termguicolors
-set scrolloff=8
-set noshowmode
-set colorcolumn=80
-set signcolumn=yes
 
 call plug#begin()
 Plug 'junegunn/vim-easy-align'
 
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " On-demand loading
@@ -53,4 +31,16 @@ call plug#end()
 
 let mapleader = " "
 
-nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+
+
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+augroup Vek
+    autocmd!
+    autocmd BufWritePre * :call TrimWhitespace()
+augroup END
