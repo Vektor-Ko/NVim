@@ -1,3 +1,8 @@
+
+autocmd!
+
+scriptencoding utf-8
+
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e

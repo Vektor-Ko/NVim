@@ -1,14 +1,23 @@
+if has("nvim")
+    let g:plug_home = stdpath('data') . '/plugged'
+endif
+
+
 call plug#begin()
 Plug 'junegunn/vim-easy-align'
-
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 if has("nvim")
 Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'windwp/nvim-autopairs'
 endif
 
 
@@ -25,10 +34,8 @@ Plug 'fatih/vim-go', { 'tag': '*' }
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
-
 Plug 'gruvbox-community/gruvbox'
 
 " Initialize plugin system
 call plug#end()
+
